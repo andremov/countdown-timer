@@ -10,6 +10,7 @@ import {
 import clsx from "clsx";
 import Header from "./header";
 import { PauseIcon, PlayIcon, RotateCcw } from "lucide-react";
+import PieChart from "./circle";
 
 export default function CountdownTimer({
   lang = "en",
@@ -22,9 +23,11 @@ export default function CountdownTimer({
     minutes: 0,
     seconds: 0,
   });
+  const [remainingSeconds, setRemainingSeconds] = useState(0);
+  const [maxSeconds, setMaxSeconds] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [input, setInput] = useState("");
-  const [intervalId, setIntervalId] = useState<NodeJS.Timeout | undefined>(
+  const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | undefined>(
     undefined,
   );
 
@@ -39,44 +42,47 @@ export default function CountdownTimer({
   }, []);
 
   useEffect(() => {
-    if (
-      (isRunning && timeLeft.seconds > 0) ||
-      timeLeft.minutes > 0 ||
-      timeLeft.hours > 0
-    ) {
-      const id = setInterval(() => {
+    if (isRunning) {
+      const id = setTimeout(() => {
         setTimeLeft((prevTime) => {
           if (!isRunning) return prevTime;
+
           const totalSeconds =
             prevTime.hours * 3600 + prevTime.minutes * 60 + prevTime.seconds;
+
           if (totalSeconds > 0) {
             const newTotalSeconds = totalSeconds - 1;
+            setRemainingSeconds(newTotalSeconds);
             return {
               hours: Math.floor((newTotalSeconds % 86400) / 3600),
               minutes: Math.floor((newTotalSeconds % 3600) / 60),
               seconds: newTotalSeconds % 60,
             };
           }
-          console.log("ENDED");
 
           clearInterval(id);
+          setRemainingSeconds(0);
           setIsRunning(false);
           return { hours: 0, minutes: 0, seconds: 0 };
         });
       }, 1000);
 
-      setIntervalId(id);
-      return () => clearInterval(id);
+      setTimeoutId(id);
+      return () => clearTimeout(id);
     }
   }, [isRunning, timeLeft]);
 
   function toggleTimer() {
     if (isRunning) {
-      clearInterval(intervalId);
+      clearInterval(timeoutId);
       setIsRunning(false);
     } else {
       if (timeLeft.hours > 0 || timeLeft.minutes > 0 || timeLeft.seconds > 0) {
         setIsRunning(true);
+        const totalSeconds =
+          timeLeft.hours * 3600 + timeLeft.minutes * 60 + timeLeft.seconds;
+        setRemainingSeconds(totalSeconds);
+        setMaxSeconds(totalSeconds);
       }
     }
   }
@@ -93,6 +99,7 @@ export default function CountdownTimer({
   function resetTimer() {
     if (isRunning) return;
 
+    setRemainingSeconds(maxSeconds);
     setIsRunning(false);
     setTimeLeft(getTimeLeftFromInput(input));
   }
@@ -123,6 +130,13 @@ export default function CountdownTimer({
     <div className="container mx-auto flex h-full flex-col">
       <Header lang={lang} />
       <div className="flex h-full w-full flex-col items-center justify-center">
+        <PieChart
+          percentage={
+            maxSeconds === 0 ? 100 : (remainingSeconds / maxSeconds) * 100
+          }
+          size={550}
+          className="absolute z-[-1] opacity-50"
+        />
         <div className="flex gap-1 font-mono text-[100px]">
           <span
             className={clsx({
