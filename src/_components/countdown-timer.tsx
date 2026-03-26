@@ -140,7 +140,7 @@ export default function CountdownTimer({
         <div className="flex gap-1 font-mono text-[100px]">
           <span
             className={clsx({
-              "text-zinc-200": timeLeft.hours === 0,
+              "text-sand": timeLeft.hours === 0,
             })}
           >
             {timeLeft.hours < 10 ? "0" : ""}
@@ -148,14 +148,14 @@ export default function CountdownTimer({
           </span>
           <span
             className={clsx({
-              "text-zinc-200": timeLeft.hours === 0,
+              "text-sand": timeLeft.hours === 0,
             })}
           >
             :
           </span>
           <span
             className={clsx({
-              "text-zinc-200": timeLeft.minutes === 0 && timeLeft.hours === 0,
+              "text-sand": timeLeft.minutes === 0 && timeLeft.hours === 0,
             })}
           >
             {timeLeft.minutes < 10 ? "0" : ""}
@@ -163,14 +163,14 @@ export default function CountdownTimer({
           </span>
           <span
             className={clsx({
-              "text-zinc-200": timeLeft.minutes === 0 && timeLeft.hours === 0,
+              "text-sand": timeLeft.minutes === 0 && timeLeft.hours === 0,
             })}
           >
             :
           </span>
           <span
             className={clsx({
-              "text-zinc-200":
+              "text-sand":
                 timeLeft.seconds === 0 &&
                 timeLeft.minutes === 0 &&
                 timeLeft.hours === 0,
@@ -190,17 +190,17 @@ export default function CountdownTimer({
         />
         <div className="flex w-full justify-center gap-4">
           <button
-            className="rounded-full bg-zinc-100 p-4 text-zinc-800"
+            className="rounded-full bg-cream-tinted border border-sand p-4 text-walnut"
             onClick={toggleTimer}
           >
             {isRunning ? (
-              <PauseIcon className="fill-zinc-800" />
+              <PauseIcon className="fill-walnut" />
             ) : (
-              <PlayIcon className="fill-zinc-800" />
+              <PlayIcon className="fill-walnut" />
             )}
           </button>
           <button
-            className="rounded-full bg-zinc-100 p-4 text-zinc-800 disabled:text-zinc-300"
+            className="rounded-full bg-cream-tinted border border-sand p-4 text-walnut disabled:text-sand"
             onClick={resetTimer}
             disabled={isRunning}
           >

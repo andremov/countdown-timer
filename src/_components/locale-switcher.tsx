@@ -6,11 +6,11 @@ export default function LocaleSwitcher({
   lang?: "en" | "es";
 }) {
   return (
-    <div className="absolute left-1/2 top-5 flex -translate-x-1/2 rounded-md border border-gray-200">
+    <div className="absolute left-1/2 top-5 flex -translate-x-1/2 rounded-md border border-sand">
       <Link
         href={"/en"}
         className={
-          (lang === "en" ? "bg-gray-200 font-semibold" : "") + " px-3 py-1"
+          (lang === "en" ? "bg-sand font-semibold" : "") + " px-3 py-1 transition-colors duration-200 hover:bg-cream-tinted"
         }
       >
         EN
@@ -19,7 +19,7 @@ export default function LocaleSwitcher({
       <Link
         href={"/es"}
         className={
-          (lang === "es" ? "bg-gray-200 font-semibold" : "") + " px-3 py-1"
+          (lang === "es" ? "bg-sand font-semibold" : "") + " px-3 py-1 transition-colors duration-200 hover:bg-cream-tinted"
         }
       >
         ES

@@ -33,7 +33,7 @@ export default function PieChart({
         cx={size / 2}
         cy={size / 2}
         r={radius}
-        stroke="#e6e6e6"
+        stroke="#E0D5C5"
         strokeWidth={strokeWidth}
         fill="none"
       />
@@ -41,7 +41,7 @@ export default function PieChart({
         cx={size / 2}
         cy={size / 2}
         r={radius}
-        stroke="#4caf50"
+        stroke="#C07252"
         strokeWidth={strokeWidth}
         fill="none"
         strokeDasharray={circumference}
