@@ -13,7 +13,7 @@ export default function Header(props: HeaderPropsType) {
   return (
     <div className="relative mx-auto flex w-full max-w-screen-md items-center justify-center">
       <LogoIcon className="size-10 rotate-12 text-walnut" />
-      <h1 className="mb-4 text-center font-serif text-2xl font-bold text-walnut">
+      <h1 className="text-center font-serif text-2xl font-bold text-walnut">
         {localeStrings.title}
       </h1>
     </div>
